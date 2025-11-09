@@ -1,127 +1,46 @@
 // 1111111111111111111111111111
-
-type Admin = {
-  name:string;
-  permissions: string[];
+type EvenNumbers =  (arrNum: number[]) => number;
+const arr = [1,2,3,4,5,6,7,8,9,10]
+const sumEvenNumbers:EvenNumbers = (arr)=> {
+const newArray = arr.filter((a:number)=>{return a % 2 === 0})
+.reduce((sum:number, num:number):number => sum + num,0)
+return newArray
 }
-
-type User = {
-  name:string;
-  email: string;
-}
-
-type AdminUser = Admin & User;
-
-const adminUser: AdminUser = {
-  name: "Mykola",
-  email: "19988221@gmail.com",
-  permissions: ["read", "write", "exec"]
-};
+// console.log(sumEvenNumbers(arr))
 
 // 222222222222222222222222222222222
 
-type Engine = {
-  type: string;
-    horsepower: number;
-}
-type Car = {
-   make: string;
-  model: string;
-  engine: Engine;
-  year?: number;
+interface StringToBooleanFunction {
+  (string:string):boolean
 }
 
-const car = {
-  make: "aaaaaaa6",
-  model: "AAA3",
-  engine: {
-    type: "jjjjj",
-    horsepower: 333
-  },
-  year: 1986,
-};
-
-
-function getCarInfo(car: Car): void {
-  console.log(
-    `Марка: ${car.make}, Модель: ${car.model}, Двигатель: ${car.engine.type} (${car.engine.horsepower} л.с.)` +
-      (car.year ? `, Год: ${car.year}` : "")
-  );
+const toCheckString:StringToBooleanFunction = (string) => {
+  return string.length !== 0;
 }
 
-
+// console.log( toCheckString (" "))
 // 3333333333333333333333333333333
+type CompareStrings = (q: string, b: string) => boolean;
 
-interface Product {
-  name: string;
-  price: number;
-}
-
-interface CalculateDiscount {
-  (product: Product, discount: number): number;
-}
-
-const calculateDiscount:CalculateDiscount = (product, discount) =>{
-  return product.price - product.price * (discount / 100);
-}
-
-console.log(calculateDiscount({name: "Audi", price: 30000 },20))
-
+const compareStrings: CompareStrings = (str1, str2) => {
+  return str1 === str2;
+};
+// console.log (compareStrings("kola", "cola"))
+// console.log (compareStrings("kola", "Kola"))
+// console.log (compareStrings("kola", "kola"))
 // 44444444444444444444444444444444444444
 
-interface Employee {
-  name: string;
-  salary: number;
-}
-
-const employees: Employee[] = [
-  { name: "Anna", salary: 3000 },
-  { name: "Finn", salary: 2500 },
-  { name: "Julian", salary: 4000 },
-];
-
-
-function getSalaries(employees: Employee[]): number[] {
-  return employees.map((employee) => employee.salary);
-}
-
-console.log(getSalaries(employees))
+// function getLastElement<T>(arr: T[]): T| undefined {
+//   return arr[arr.length - 1];
+// }
+// console.log(getLastElement([1, 2, 3, 4]));   
 
 // 5555555555555555555555555555555555555
 
-interface Person {
-  firstName: string;
-  lastName: string;
+function makeTriple<T>(a: T, b: T, c: T): T[] {
+  return [a, b, c];
 }
 
-interface Student extends Person {
-  grade: number;
-}
-
-const student: Student = {
-  firstName: "Anna",
-  lastName: "Bauer",
-  grade: 1.3,
-};
-
-function printStudentInfo(student: Student): void {
-  console.log(
-    `Student: ${student.firstName} ${student.lastName}, Note: ${student.grade}`
-  );
-}
-
-printStudentInfo(student);
-
-// 6666666666666666666666666666666
-
-interface ConcatStrings {
-  (str1: string, str2: string): string;
-}
+console.log(makeTriple("a", "b", "c")); 
 
 
-const concatStrings: ConcatStrings = (str1, str2) => {
-  return str1 + str2;
-};
-
-
-console.log(concatStrings("Hallo, ", "Welt!"));
